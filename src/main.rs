@@ -3,8 +3,10 @@ use lazy_static::lazy_static;
 use std::{env, fs};
 
 lazy_static! {
-    static ref SOLUTIONS: [Box<dyn aoc_2021::problem::Problem + Sync>; 1] =
-        [Box::new(aoc_2021::solutions::day01::DayOne {})];
+    static ref SOLUTIONS: [Box<dyn aoc_2021::problem::Problem + Sync>; 2] = [
+        Box::new(aoc_2021::solutions::DayOne {}),
+        Box::new(aoc_2021::solutions::DayTwo {}),
+    ];
 }
 
 fn main() {
@@ -16,12 +18,10 @@ fn main() {
 
     let input_fpath = format!("src/inputs/day{:0>2}.txt", day);
 
-    println!("{}", input_fpath);
-
     let input = fs::read_to_string(input_fpath).expect("unable to read input file");
 
     let problem = SOLUTIONS.get(day - 1).expect("invalid day");
 
-    println!("a {}", problem.a(&input));
-    println!("b {}", problem.b(&input));
+    println!("a: {}", problem.a(&input));
+    println!("b: {}", problem.b(&input));
 }
